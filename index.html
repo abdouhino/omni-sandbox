@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OMNI-SANDBOX 2D v23 - New UI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Fredoka:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="main-container">
+    <div id="canvas-wrapper">
+        <canvas id="sandbox"></canvas>
+        <div id="toast"></div>
+        <div id="beginner-panel" hidden>
+            <div class="beginner-head">BEGINNER ASSEMBLY</div>
+            <div id="beginner-progress">Choose a build guide</div>
+            <div id="beginner-step">PC GUIDE or CAR GUIDE</div>
+            <div id="beginner-instruction">Ghost parts show exactly where each component belongs. Click the highlighted ghost to place the next part.</div>
+            <div class="beginner-foot"><span id="beginner-hint">GREEN = CURRENT GHOST · CLICK TO PLACE</span><button id="btn-guide-exit" class="pbtn">Exit</button></div>
+        </div>
+        <div id="science-panel" hidden>
+            <div class="science-head"><span>SCIENCE CONSOLE / V23 · ULTIMATE LAB</span><button id="btn-science-close" class="pbtn">X</button></div>
+            <div class="science-tabs"><button id="science-tab-live" class="pbtn active">LIVE DATA</button><button id="science-tab-journal" class="pbtn">DISCOVERIES</button><button id="science-tab-tools" class="pbtn">SYSTEM TOOLS</button></div>
+            <pre id="science-live">Select a material to inspect local data.</pre>
+            <canvas id="science-chart" width="286" height="74"></canvas>
+            <div id="science-journal" hidden></div>
+            <div id="science-tools" hidden><button id="btn-science-geology" class="pbtn">GELOGY WORLD</button><button id="btn-science-logic-demo" class="pbtn">LOGIC CIRCUIT DEMO</button><button id="btn-journal-clear" class="pbtn danger">CLEAR JOURNAL</button></div>
+        </div>
+        <div id="challenges" hidden>
+            <div class="ch-head"><b id="ch-title">CHALLENGES</b><button id="ch-close" class="pbtn">X</button></div>
+            <div id="ch-bar"><i id="ch-bar-fill"></i></div>
+            <div id="ch-list"></div>
+            <div class="ch-foot"><button id="ch-reset" class="pbtn">Reset</button></div>
+        </div>
+        <canvas id="grid-overlay"></canvas>
+        <div id="hud"><div id="diag-panel" hidden></div></div>
+    </div>
+</div>
+
+<div id="statusbar">
+    <span id="hud-xy">x0,y0</span>
+    <span id="hud-hover"></span>
+    <span><b id="hud-count">0</b> pxls</span>
+    <span><b id="hud-fps">60</b> <span data-i18n="hud.fps"></span></span>
+    <span id="hud-zoom">zoom x1</span>
+    <span id="hud-tool"><b id="hud-el"></b></span>
+</div>
+
+<div id="ui">
+    <div id="toolbar">
+        <button id="btn-pause" class="tbtn" data-icon="pause" data-i18n-title="ui.pause"></button>
+        <button id="btn-play"  class="tbtn on" data-icon="play" data-i18n-title="ui.resume"></button>
+        <button id="btn-step"  class="tbtn" data-icon="step" data-i18n-title="ui.step"></button>
+        <button id="btn-ff"    class="tbtn wide" data-i18n-title="ui.speed"><span id="speed-lbl">x1</span></button>
+        <span class="tsep"></span>
+        <button id="btn-brush-minus" class="tbtn" data-icon="minus" title="Brush -"></button>
+        <b id="brush-val">4</b>
+        <button id="btn-brush-plus" class="tbtn" data-icon="plus" title="Brush +"></button>
+        <span class="tsep"></span>
+        <button id="btn-undo" class="tbtn" data-icon="undo"></button>
+        <button id="btn-redo" class="tbtn" data-icon="redo" title="Redo (Ctrl+Y)"></button>
+        <button id="btn-clear" class="tbtn" data-icon="trash"></button>
+        <button id="btn-save" class="tbtn" data-icon="save"></button>
+        <button id="btn-settings" class="tbtn" data-icon="gear" title="More options"></button>
+        <span class="tsep"></span>
+        <button id="btn-zoom-out" class="tbtn" data-icon="zoomout" title="Zoom out (-)"></button>
+        <button id="btn-zoom-in" class="tbtn" data-icon="zoomin" title="Zoom in (+ or Ctrl+wheel)"></button>
+        <button id="btn-zoom-reset" class="tbtn wide" title="Reset zoom (0)">1:1</button>
+        <button id="btn-grid" class="tbtn" data-icon="grid" title="Pixel grid (G)"></button>
+        <button id="btn-challenges" class="tbtn" data-icon="help" title="Challenges / tutorial"></button>
+        <span class="tgrow"></span>
+        <input type="text" id="search-box" data-i18n-placeholder="ui.search" autocomplete="off">
+    </div>
+    <div id="toolrow"></div>
+    <div id="sidebar"></div>
+    <div id="strip"><div id="palette-list"></div></div>
+
+    <div id="more">
+        <div class="mgrp"><span class="mtitle">Brush</span>
+            <button id="btn-eraser" class="pbtn">Eraser</button>
+            <button id="btn-dots1"  class="pbtn">Small</button>
+            <button id="btn-dots2"  class="pbtn">Large</button>
+            <button id="btn-shape" class="pbtn">Circle</button>
+            <input type="range" id="brush-size" min="1" max="25" value="4">
+        </div>
+        <div class="mgrp"><span class="mtitle">World</span>
+            <button id="btn-gravity" class="pbtn">Gravity: ON</button>
+            <button id="btn-wind" class="pbtn">Wind: OFF</button>
+            <button id="btn-thermal" class="pbtn">View: Normal</button>
+            <button id="btn-sound" class="pbtn">Sound: ON</button>
+            <button id="btn-diagnostics" class="pbtn">Diagnostics: OFF</button>
+        </div>
+        <div class="mgrp"><span class="mtitle">View</span>
+            <button id="btn-zoomin" class="pbtn" data-i18n-title="ui.zoomIn">Zoom +</button>
+            <button id="btn-zoomout" class="pbtn" data-i18n-title="ui.zoomOut">Zoom -</button>
+            <button id="btn-zoomreset" class="pbtn" data-i18n-title="ui.zoomReset">Reset</button>
+            <button id="btn-help" class="pbtn">Help</button>
+        </div>
+        <div class="mgrp beginner-controls"><span class="mtitle">Guides</span>
+            <button id="btn-beginner" class="pbtn">Beginner: OFF</button>
+            <button id="btn-guide-pc" class="pbtn">PC Guide</button>
+            <button id="btn-guide-car" class="pbtn">Car Guide</button>
+        </div>
+        <div class="mgrp"><span class="mtitle">Lab</span>
+            <button id="btn-science" class="pbtn">Science</button>
+            <button id="btn-gen-geology" class="pbtn">Geology</button>
+            <button id="btn-logic-demo" class="pbtn">Logic Demo</button>
+        </div>
+        <div class="mgrp"><span class="mtitle">Scenes</span>
+            <button id="btn-gen-world" class="pbtn">World</button>
+            <button id="btn-gen-kitchen" class="pbtn">Kitchen</button>
+            <button id="btn-gen-lab" class="pbtn">Lab</button>
+            <button id="btn-gen-engine" class="pbtn">Engines</button>
+            <button id="btn-plan" class="pbtn">Plan</button>
+            <button id="btn-load" class="pbtn">Load</button>
+        </div>
+    </div>
+</div>
+
+<div id="save-modal"><div class="box">
+    <h2 data-i18n="ui.saves"></h2>
+    <div id="slots"></div>
+    <div class="row">
+        <button id="btn-export" class="pbtn" data-i18n="ui.export"></button>
+        <button id="btn-import" class="pbtn" data-i18n="ui.import"></button>
+        <button id="btn-modal-close" class="pbtn danger" data-i18n="ui.close"></button>
+    </div>
+</div></div>
+<input type="file" id="file-import" accept=".json,application/json" hidden>
+
+<script src="js/01-i18n.js"></script>
+<script src="js/02-canvas-elements.js"></script>
+<script src="js/03-materials-thermal.js"></script>
+<script src="js/04-state-tools.js"></script>
+<script src="js/05-air-pressure.js"></script>
+<script src="js/06-undo-draw.js"></script>
+<script src="js/07-electronics-light.js"></script>
+<script src="js/08-view-controls.js"></script>
+<script src="js/09-audio.js"></script>
+<script src="js/10-save-load.js"></script>
+<script src="js/11-mechanics.js"></script>
+<script src="js/12-palette-ui.js"></script>
+<script src="js/13-input-generators.js"></script>
+<script src="js/14-chemistry-food.js"></script>
+<script src="js/15-movement-physics.js"></script>
+<script src="js/16-simulation-step.js"></script>
+<script src="js/17-render.js"></script>
+<script src="js/18-ui-wiring.js"></script>
+<script src="js/19-grid-zoom.js"></script>
+<script src="js/20-challenges.js"></script>
+</body>
+</html>

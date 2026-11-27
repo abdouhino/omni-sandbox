@@ -1,0 +1,222 @@
+const LANGS = {
+    en: {
+        'ui.title': 'OMNI-SANDBOX 2D v23 - Ultimate Lab',
+        'ui.panelTitle': 'Complete Materials Table',
+        'ui.panelSub': '⚛ OMNI-SANDBOX 2D · v23 · ULTIMATE LAB',
+        'ui.search': 'Search elements...',
+        'ui.help': 'Right click = 2nd element · Shift = line · Ctrl = rectangle · Ctrl+Shift = fill · Space = pause · F = step · [ ] = size · Tab = shape · Ctrl+Z = undo · Ctrl+S / Ctrl+O · 1 2 3 = views · Ctrl+wheel = zoom · middle click = pan · Diagnostics = live component readout',
+        'ui.brush': 'Brush',
+        'ui.resume': 'Resume',
+        'ui.pause': 'Pause',
+        'ui.speed': 'Speed (x1 / x2 / x4)',
+        'ui.step': 'Step by step',
+        'ui.eraser': 'Eraser',
+        'ui.smallBrush': 'Small brush',
+        'ui.largeBrush': 'Large brush',
+        'ui.zoomIn': 'Zoom +',
+        'ui.zoomOut': 'Zoom −',
+        'ui.zoomReset': 'Reset view',
+        'ui.saves': 'SAVES',
+        'ui.export': '⬇ Export (.json)',
+        'ui.import': '⬆ Import',
+        'ui.close': '✖ Close',
+        'hud.tool': 'Tool:',
+        'hud.hover': 'Hover:',
+        'hud.fps': 'FPS:',
+        'hud.active': 'Active pixels:',
+        'hud.empty': 'Empty',
+        'hud.toolLine': '{a}  ⟷ right click: {b}',
+        'btn.gravityOn': 'Gravity: ON',
+        'btn.gravityOff': 'Gravity: OFF',
+        'btn.windOff': 'Wind: OFF',
+        'btn.windRight': 'Wind: >>',
+        'btn.windLeft': 'Wind: <<',
+        'btn.viewNormal': 'View: Normal',
+        'btn.viewThermal': 'View: Thermal',
+        'btn.viewPressure': 'View: Pressure',
+        'btn.circle': 'Circle',
+        'btn.square': 'Square',
+        'btn.soundOn': 'Sound: ON',
+        'btn.soundOff': 'Sound: OFF',
+        'btn.world': 'World',
+        'btn.kitchen': 'Kitchen',
+        'btn.lab': 'Lab',
+        'btn.engines': 'Engines',
+        'btn.undo': 'Undo',
+        'btn.plan': 'Plan',
+        'btn.save': 'Save',
+        'btn.load': 'Load',
+        'btn.clear': 'Clear',
+        'sec.tools': 'Tools & Special (basics)',
+        'sec.life': 'Life & Creatures',
+        'sec.food': 'Food & Cooking',
+        'sec.solids': 'Solids',
+        'sec.liquids': 'Liquids',
+        'sec.gas': 'Gases, Energy & Explosives',
+        'sec.electric': 'Electricity & Light',
+        'sec.machines': 'Machines & Appliances',
+        'sec.mechanics': 'Mechanics & Engines',
+        'sec.vehicles': 'Vehicles',
+        'sec.simtools': 'Simulation Tools',
+        'pal.section': 'Section {n}: {title}',
+        'pal.plans': 'Machine plans (click to select, then click in the world)',
+        'pal.deleteTip': ' (right click = delete)',
+        'pal.deleteConfirm': 'Delete the plan "{name}"?',
+        'undo.none': 'Nothing to undo',
+        'undo.done': 'Undone',
+        'redo.none': 'Nothing to redo',
+        'redo.done': '↷ Redone',
+        'hover.on': 'ON',
+        'hover.off': 'OFF',
+        'hover.rpm': '⚙ {n} rpm',
+        'hover.noMovingPart': 'no moving part attached',
+        'hover.lit': 'lit',
+        'hover.unlit': 'unlit',
+        'hover.live': '⚡ energized',
+        'food.raw': 'raw',
+        'food.mid': 'half-cooked ({n}%)',
+        'food.done': 'cooked ✔',
+        'food.over': 'overcooked',
+        'food.almostBurnt': 'almost burnt',
+        'food.cooking': 'cooking {n}%',
+        'food.golden': 'golden ✔',
+        'food.burning': 'burning!',
+        'dir.0': 'right',
+        'dir.1': 'down',
+        'dir.2': 'left',
+        'dir.3': 'up',
+        'repeater.info': 'Repeater: direction {dir}, delay {delay} (click = rotate, Shift + click = delay)',
+        'diode.info': 'Diode output: {dir} (interact-click to rotate)',
+        'switch.state': 'Switch / timer: {state}',
+        'switch.none': 'No switch here',
+        'save.full': 'Failed: storage full',
+        'save.done': 'Saved (slot {n})',
+        'save.empty': 'Slot empty',
+        'save.loaded': 'Loaded: {label}',
+        'save.loadFail': 'Load failed',
+        'save.exported': '⬇ File exported',
+        'save.imported': '⬆ Imported',
+        'save.invalid': 'Invalid file',
+        'slot.auto': 'Auto-save',
+        'slot.n': 'Slot {n}',
+        'slot.particles': '{n} particles',
+        'slot.empty': 'empty',
+        'slot.saveHere': 'Save here',
+        'slot.load': 'Load',
+        'slot.delete': 'Del.',
+        'plan.cancelled': 'Cancelled',
+        'plan.mirrorOn': 'Plan mirrored',
+        'plan.mirrorOff': 'Mirror removed',
+        'plan.armed': '{name}: click in the world to place it (M = mirror, Esc = cancel)',
+        'plan.placed': '{name} placed',
+        'plan.emptyZone': 'Empty area: nothing saved',
+        'plan.promptName': 'Name of your machine?',
+        'plan.defaultName': 'My machine',
+        'plan.saved': 'Plan "{name}" saved ({n} cells): it is at the top of the palette',
+        'plan.capture': 'Plan: drag a rectangle around your machine to save it (Esc = cancel)',
+        'plan.fridge': 'Refrigerator',
+        'plan.freezer': 'Freezer',
+        'plan.microwave': 'Microwave',
+        'plan.oven': 'Oven',
+        'plan.conveyor': 'Conveyor Belt',
+        'plan.clock': 'Clock (loop)',
+        'plan.fridge.hint': '{name}: put food inside (not too far from the top plate). The thermostat cuts the cold once it is cold enough.',
+        'plan.microwave.hint': 'Microwave: put food or water inside, then click the Timer (Interact tool) to start. Avoid metal!',
+        'plan.oven.hint': 'Oven: place food 2-4 cells above the heating element. The thermostat holds about 180 °C.',
+        'plan.conveyor.hint': 'Conveyor belt: place objects on it and they move to the right.',
+        'plan.clock.hint': 'Clock: click the switch with Interact, then switch it off again: the pulse keeps circulating in the ring and the lamp blinks. Change the repeater delay with Shift + click.',
+        'piece.rotated': 'Piece rotated: {deg}°  (R = rotate, Shift+R = reverse)',
+        'piece.mirrorOn': 'Piece mirrored',
+        'piece.mirrorOff': 'Mirror removed',
+        'piece.placed': '{name} placed · size {size} ([ ] or mouse wheel to change)',
+        'noRoom': 'No room here',
+        'demo.electric': 'Motor → gears → sensor → bulb. 👆 cuts the current.',
+        'demo.combustion': 'Combustion engine: the starter spins the flywheel, then 👆 on the switch cuts it off.',
+        'demo.ecar': 'Electric car: battery + motorised wheel. 👆 on the switch to stop it.',
+        'demo.ecar2': 'Big electric car: bigger battery and wheels. 👆 on the switch to stop it.',
+        'demo.engcar': 'Engine car: injector + spark plug + engine block drive both wheels. 👆 on the switch to stop it.',
+        'demo.car': 'Combustion-engine car: the starter spins the engine, then 👆 on the switch cuts it off.',
+        'hint.AXLE': 'Axle: attach ROTOR cells around it to make a wheel that spins.',
+        'hint.MOTOR': 'Motor: like an axle, but it spins when current reaches the area near its wheel.',
+        'hint.ROTOR': 'Rotor: all parts attached to an axle rotate together.',
+        'hint.GEAR': 'Gear: two gears 1 cell apart turn together, in opposite directions.',
+        'hint.PIN': 'Crank pin: the sensor detects it; linked to a nearby piston (crankshaft).',
+        'hint.PISTON': 'Piston: pushed by pressure. Near a crank pin = connecting rod and crank.',
+        'hint.VENT': 'Vent valve: lets pressure leak out but holds the matter back.',
+        'hint.INJECTOR': 'Injector: sends fuel on every electrical pulse.',
+        'hint.PLUG': 'Spark plug: makes a flame on every electrical pulse.',
+        'hint.HALL': 'Sensor: sends a pulse when a crank pin passes close to it.',
+        'hint.FUEL': 'Fuel: a gas that burns and creates strong pressure.',
+        'hint.CAR': 'Car: 1 click. Switch on the roof of the chassis (click = on/off). M = mirror (it drives to the left), R = rotate.',
+        'hint.CHASSIS': 'Chassis: then place 2 Wheels, wheel center = center of the wheel arch. A drive wheel + a battery + a wire near the wheel = car.',
+        'hint.WHEEL': 'Wheel: place it under/against a steel chassis, 1 or 2 cells apart. It rolls on the ground.',
+        'hint.HEATER': 'Heating element: heats its surroundings when current arrives (battery + copper wire). Ideal for an oven.',
+        'hint.COOLER': 'Cooling module: cools its surroundings when powered. In an insulated box = fridge.',
+        'hint.MAGNETRON': 'Magnetron: heats food, water and living things around it (radius 6) when powered. Metal makes sparks!',
+        'hint.THERMOSTAT': 'Cold thermostat: put it on the wire; it lets current through only when it is warmer than 9 °C (fridge).',
+        'hint.THERMOSTAT_H': 'Oven thermostat: lets current through only when it is below about 180 °C.',
+        'hint.REPEATER': 'Repeater: a diode with a delay. Current enters from behind and comes out in front, later. Interact: click = rotate, Shift + click = delay. Color = direction (red right, green down, blue left, yellow up). With a wire loop = clock.',
+        'hint.TIMER': 'Timer: a switch that turns itself off after ~15 seconds. Click it with the Interact tool to start it.',
+        'hint.CONVEYOR': 'Conveyor belt: when powered, it pushes whatever sits on it to the right. Several cells side by side = longer belt.',
+        'hint.TIRE': 'Rubber: stick it around a wheel (gear, rotor...) so it grips the ground. A steel chassis + wheels = vehicle.',
+        'hint.WHEELM': 'Drive wheel: spins when current arrives within 11 cells of its center (without touching). M = reverse direction.',
+        'hint.piece': 'Piece: 1 click places it · [ ] or mouse wheel = size · R = rotate · Shift/Ctrl = free drawing.',
+        'el.EMPTY': 'Eraser (Empty)', 'el.CLONE': 'Cloner', 'el.VOID': 'Black Hole', 'el.PORTAL_A': 'Blue Portal', 'el.PORTAL_B': 'Orange Portal',
+        'el.SPONGE': 'Sponge', 'el.FUSE': 'Fuse', 'el.RAW_MEAT': 'Raw Meat', 'el.COOKED_MEAT': 'Cooked Meat', 'el.ROTTEN_MEAT': 'Rotten Meat',
+        'el.BREAD': 'Bread', 'el.DOUGH': 'Bread Dough', 'el.FLOUR': 'Flour', 'el.CHEESE': 'Cheese', 'el.MELTED_CHEESE': 'Melted Cheese',
+        'el.FRUIT': 'Fruit / Apple', 'el.HONEY': 'Honey', 'el.MILK': 'Milk', 'el.JUICE': 'Fruit Juice', 'el.SALT': 'Salt', 'el.SUGAR': 'Sugar',
+        'el.COPPER': 'Copper Wire', 'el.INSULATOR': 'Insulator', 'el.BATTERY': 'Battery', 'el.SWITCH': 'Switch', 'el.LAMP': 'Light Bulb',
+        'el.LASER': 'Laser Emitter', 'el.THERMO': 'Thermal Sensor', 'el.BARO': 'Pressure Sensor', 'el.PHOTO': 'Light Sensor', 'el.PHOT': 'Photon',
+        'el.MIRROR': 'Mirror', 'el.ROTOR': 'Rotor / Blade', 'el.GEAR': 'Gear', 'el.PIN': 'Crank Pin', 'el.AXLE': 'Axle (Pivot)',
+        'el.MOTOR': 'Electric Motor', 'el.PISTON': 'Piston', 'el.VENT': 'Valve (Vent)', 'el.INJECTOR': 'Injector', 'el.PLUG': 'Spark Plug',
+        'el.CHASSIS': 'Chassis', 'el.TIRE': 'Rubber', 'el.HEATER': 'Heating Element', 'el.COOLER': 'Cooling Module', 'el.MAGNETRON': 'Magnetron',
+        'el.THERMOSTAT': 'Cold Thermostat', 'el.THERMOSTAT_H': 'Oven Thermostat', 'el.TIMER': 'Timer', 'el.REPEATER': 'Repeater',
+        'el.CONVEYOR': 'Conveyor Belt', 'el.WHEEL': 'Wheel', 'el.WHEELM': 'Drive Wheel', 'el.CAR': 'Complete Car', 'el.HALL': 'Position Sensor',
+        'el.FUEL': 'Fuel (Vapor)', 'el.WALL': 'Indestructible Wall', 'el.CHARRED': 'Charred (Burnt)', 'el.HUMAN': 'Human', 'el.ZOMBIE': 'Zombie',
+        'el.ANIMAL': 'Cow / Livestock', 'el.FISH': 'Fish', 'el.ANT': 'Ant', 'el.PLANT': 'Plant', 'el.SEED': 'Seed', 'el.VIRUS': 'Virus',
+        'el.BLOOD': 'Blood', 'el.SAND': 'Sand', 'el.DIRT': 'Dirt', 'el.STONE': 'Stone', 'el.WOOD': 'Wood', 'el.STEEL': 'Steel', 'el.GLASS': 'Glass',
+        'el.ICE': 'Ice', 'el.SNOW': 'Snow', 'el.ASH': 'Ash', 'el.WATER': 'Water', 'el.SALT_WATER': 'Salt Water', 'el.LAVA': 'Lava',
+        'el.OIL': 'Oil / Petroleum', 'el.ACID': 'Acid', 'el.NITRO': 'Nitroglycerin', 'el.FIRE': 'Fire', 'el.SMOKE': 'Smoke', 'el.STEAM': 'Steam',
+        'el.METHANE': 'Methane Gas', 'el.SPARK': 'Electricity', 'el.TORCH': 'Torch / Campfire', 'el.CRYO': 'Liquid Nitrogen',
+        'el.GUNPOWDER': 'Gunpowder', 'el.C4': 'C4', 'el.NUKE': 'Nuclear Bomb',
+        'tool.HEAT': 'Heat', 'tool.COOL': 'Cool', 'tool.AIR': 'Air (+pressure)', 'tool.VAC': 'Vacuum (−pressure)', 'tool.PIPETTE': 'Pipette', 'tool.TOGGLE': 'Interact'
+    }
+};
+let LANG = 'en';
+const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const ICON_RE = '[\\u{1F000}-\\u{1FAFF}\\u{2190}-\\u{21FF}\\u{2300}-\\u{23FF}\\u{2600}-\\u{27BF}\\u{2B00}-\\u{2BFF}\\u{FE0F}\\u{200D}]';
+const ICON_TAIL = new RegExp(' ?' + ICON_RE + '+$', 'u'), ICON_ANY = new RegExp(ICON_RE + '+ ?', 'gu');
+function noIcons(s) {
+    s = String(s).replace(/👆/gu, '[Interact]').replace(/\u2192/g, '->');
+    return s.replace(ICON_TAIL, '').replace(ICON_ANY, '');
+}
+function t(key, vars) {
+    const d = LANGS[LANG], f = LANGS.en;
+    let s = d && d[key] !== undefined ? d[key] : (f[key] !== undefined ? f[key] : key);
+    if (vars) s = s.replace(/\{(\w+)\}/g, (m, k) => (k in vars ? vars[k] : m));
+    return noIcons(s);
+}
+function registerLanguage(code, dict) { LANGS[code] = Object.assign({}, LANGS[code] || {}, dict); }
+function applyStaticText() {
+    document.documentElement.lang = LANG;
+    document.title = t('ui.title');
+    document.querySelectorAll('[data-i18n]').forEach(n => { n.textContent = t(n.dataset.i18n); });
+    document.querySelectorAll('[data-i18n-title]').forEach(n => { n.title = t(n.dataset.i18nTitle); });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(n => { n.placeholder = t(n.dataset.i18nPlaceholder); });
+}
+function setLanguage(code) {
+    if (!LANGS[code]) return false;
+    LANG = code;
+    applyStaticText();
+    refreshButtons();
+    renderPalette(document.getElementById('search-box').value);
+    toolHud();
+    if (document.getElementById('save-modal').classList.contains('show')) renderSlots();
+    return true;
+}
+(function initLanguage() {
+    const q = new URLSearchParams(location.search).get('lang');
+    if (q && LANGS[q]) LANG = q;
+    applyStaticText();
+})();
+
